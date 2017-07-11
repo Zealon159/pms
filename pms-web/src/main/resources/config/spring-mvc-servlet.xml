@@ -16,8 +16,7 @@
  
  	
     <!-- 扫描controller组件 --> 
-    <context:component-scan base-package="com.vivo.controller" />
-    <context:component-scan base-package="com.vivo.**.controller" >
+    <context:component-scan base-package="cn.corpdata.pms.controller.**" >
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
     
@@ -45,7 +44,7 @@
 	
     <mvc:view-controller path="/" view-name="/center" />
 	<mvc:view-controller path="/uc_manage" view-name="/uc_manage/center"/>
-	
+	<!-- 
 	<mvc:interceptors>		
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
@@ -56,7 +55,7 @@
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+	 -->
 	<!-- 配置资源过滤 -->
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/ExceptionPage/**" location="/ExceptionPage/"/>
