@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <settings>
+		<!-- 打印查询语句   NO_LOGGING | STDOUT_LOGGING  -->
+        <setting name="logImpl" value="NO_LOGGING" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="orgUser" type="com.vivo.org.entity.OrgUser"/>
+		<typeAlias alias="orgDept" type="com.vivo.org.entity.OrgDept"/>
+		<typeAlias alias="orgUserDeptMap" type="com.vivo.org.entity.OrgUserDeptMap"/>
+		<typeAlias alias="orgRole" type="com.vivo.org.entity.OrgRole"/>
+		<typeAlias alias="orgUserRoleMap" type="com.vivo.org.entity.OrgUserRoleMap"/>
+		<typeAlias alias="orgPermission" type="com.vivo.org.entity.OrgPermission"/>
+		<typeAlias alias="orgRolePermissionMap" type="com.vivo.org.entity.OrgRolePermissionMap"/>
+		<typeAlias alias="AttachmentsList" type="com.vivo.sys.entity.AttachmentsList"/>
+		<typeAlias alias="IndexImage" type="com.vivo.org.entity.IndexImage"/>
+		<!-- 资产别名  -->
+		<typeAlias alias="ProjectAlbum" type="com.vivo.project.entity.ProjectAlbum"/>
+		<typeAlias alias="ProjectInfo" type="com.vivo.project.entity.ProjectInfo"/>
+		<typeAlias alias="ProjectLandLicence" type="com.vivo.project.entity.ProjectLandLicence"/>
+		<typeAlias alias="ProjectLandLicenceType" type="com.vivo.project.entity.ProjectLandLicenceType"/>
+		<typeAlias alias="ProjectPropertyLicence"  type="com.vivo.project.entity.ProjectPropertyLicence"/>
+		<typeAlias alias="ProjectType" type="com.vivo.project.entity.ProjectType"/>
+		
+		<!-- 客户别名 -->
+		<typeAlias alias="CustomerType" type="com.vivo.customer.entity.CustomerType"/>
+		<typeAlias alias="customerInfo" type="com.vivo.customer.entity.CustomerInfo"/>
+		<typeAlias alias="customerMaintain" type="com.vivo.customer.entity.CustomerMaintain"/>
+		<!-- 合同别名 -->
+		<typeAlias alias="contractCustomerMap" type="com.vivo.contract.entity.ContractCustomerMap"/>
+		<typeAlias alias="contractInfo" type="com.vivo.contract.entity.ContractInfo"/>
+		<typeAlias alias="contractIntentBook" type="com.vivo.contract.entity.ContractIntentBook"/>
+		<typeAlias alias="contractPaymentType" type="com.vivo.contract.entity.ContractPaymentType"/>
+		<typeAlias alias="contractRent" type="com.vivo.contract.entity.ContractRent"/>
+		<typeAlias alias="contractRentFree" type="com.vivo.contract.entity.ContractRentFree"/>
+		<typeAlias alias="contractSerialNumber" type="com.vivo.contract.entity.ContractSerialNumber"/>
+		<typeAlias alias="contractStatus" type="com.vivo.contract.entity.ContractStatus"/>
+		<typeAlias alias="contractReceivable"  type="com.vivo.contract.entity.ContractReceivable"/>
+		<typeAlias alias="contractAlreadyReceived" type="com.vivo.contract.entity.ContractAlreadyReceived"/>
+		<typeAlias alias="contractRentByMonth" type="com.vivo.contract.entity.ContractRentByMonth"/>
+		
+		<!--文档模版 -->
+		<typeAlias alias="documentTemplate" type="com.vivo.document.entity.DocumentTemplate"/>
+		<typeAlias alias="documentTemplateType" type="com.vivo.document.entity.DocumentTemplateType"/>
+		<!-- 数据报表 -->
+		<typeAlias alias="documentTemplateData" type="com.vivo.report.entity.ReportTemplateData"/>
+		<typeAlias alias="reportTemplate" type="com.vivo.report.entity.ReportTemplate"/>
+		
+		<!-- 指标修正表 -->
+		<typeAlias alias="projectIndexRevise" type="com.vivo.index.entity.ProjectIndexRevise"/>
+		<!--消息管理 -->
+		<typeAlias alias="messageList" type="com.vivo.message.entity.MessageList"/>
+		<typeAlias alias="pushMessage" type="com.vivo.message.entity.PushMessage"/>
+		<typeAlias alias="messageUserMap" type="com.vivo.message.entity.MessageUserMap"/>
+		<!--系统日志 -->
+		<typeAlias alias="systemLog" type="com.vivo.log.entity.SystemLog"/>
+		<!-- 控制层拦截日志 -->
+		<typeAlias alias="ControllLog" type="com.vivo.aop.entity.ControllLog"/>
+	</typeAliases>
+	
+	<plugins>
+	    <!-- com.github.pagehelper为PageHelper类所在包名 -->
+	    <plugin interceptor="com.github.pagehelper.PageHelper">
+	        <property name="dialect" value="mysql"/>
+	        <!-- 该参数默认为false -->
+	        <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+	        <!-- 和startPage中的pageNum效果一样-->
+	        <property name="offsetAsPageNum" value="true"/>
+	        <!-- 该参数默认为false -->
+	        <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+	        <property name="rowBoundsWithCount" value="true"/>
+	        <!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+	        <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
+	        <property name="pageSizeZero" value="true"/>
+	        <!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+	        <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+	        <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+	        <property name="reasonable" value="false"/>
+	        <!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+	        <!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
+	        <!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,不配置映射的用默认值 -->
+	        <!-- 不理解该含义的前提下，不要随便复制该配置 -->
+	        <property name="params" value="pageNum=start;pageSize=limit;"/>
+	    </plugin>
+	</plugins>
+</configuration>   

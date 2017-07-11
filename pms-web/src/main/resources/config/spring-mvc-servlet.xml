@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.1.xsd
+      http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-4.1.xsd  
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+ 
+ 	
+    <!-- 扫描controller组件 --> 
+    <context:component-scan base-package="com.vivo.controller" />
+    <context:component-scan base-package="com.vivo.**.controller" >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+    
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    <!-- 用于使用@ResponseBody后返回中文避免乱码 
+ 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >  
+	    <property name="messageConverters">  
+	        <list>  
+	            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />  
+	            <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+	                <property name="supportedMediaTypes">  
+	                    <list>  
+	                        <value>text/plain;charset=utf-8</value>  
+	                        <value>text/html;charset=UTF-8</value>  
+	                    </list>  
+	                </property>  
+	            </bean>  
+	        </list>  
+	    </property>  
+	</bean>  --> 
+	
+    <!-- SpringMVC注解驱动 -->  
+	<mvc:annotation-driven />
+	
+    <mvc:view-controller path="/" view-name="/center" />
+	<mvc:view-controller path="/uc_manage" view-name="/uc_manage/center"/>
+	
+	<mvc:interceptors>		
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.vivo.intercepter.LoginIntercepter" >
+				<property name="notIntercept">
+					<value>/login,/doLogin,/uc_app/,/js/,/images/,/vivo/,/upload/,/fonts/</value>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 配置资源过滤 -->
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/ExceptionPage/**" location="/ExceptionPage/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/ntko/**" location="/ntko/"/>
+    <mvc:resources mapping="/officecontrol/**" location="/officecontrol/"/>
+    <mvc:resources mapping="/upload/**" location="/upload/"/>
+    <mvc:resources mapping="/uploadify/**" location="/uploadify/"/>
+    <mvc:resources mapping="/vivo/**" location="/vivo/"/>
+    
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->  
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="viewClass">
+       	   <value>org.springframework.web.servlet.view.JstlView</value>
+       </property>
+       <property name="prefix">
+           <value>/</value>
+       </property>
+       <property name="suffix">
+           <value>.jsp</value>
+       </property>
+    </bean>
+    
+</beans>
